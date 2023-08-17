@@ -1,6 +1,8 @@
 """ Game related class """
+import numpy as np
 from models import PlayerMove, PlayerEnum, WinnerEnum
 import variables
+
 
 
 class InvalidMove(BaseException):
@@ -11,7 +13,11 @@ class NotHisTurn(BaseException):
     """ Not player turn exception """
 
 
-class GameBoard():
+class GameEnded(BaseException):
+    """ Not able to place a move because game is over - we have winner """
+
+
+class GameBoard:
     """ Game board clas """
     @staticmethod
     def reset_state():
@@ -21,6 +27,10 @@ class GameBoard():
 
     def move(self, player_move: PlayerMove):
         """ Make move """
+        # we already have a winner
+        if self.get_winner():
+            raise GameEnded(f'Game is over. {self.get_winner()} won the game')
+
         if not self.is_valid_move(player_move):
             raise InvalidMove('This is not a valid move')
 
@@ -65,28 +75,28 @@ class GameBoard():
 
     def check_row_win(self, player: PlayerEnum):
         """ Identify winner by horizontal row """
-        win = False
         # check every row in board
-        for row in variables.game_field:
-            # hope row is winning
-            win = True
-            for cell in row:
-                if cell != player:
-                    # unfortunately not a match in a row
-                    win = False
-                    continue
+        win = any(np.all(variables.game_field == player, axis=1))
         return win
 
     def check_col_win(self, player: PlayerEnum):
         """ Identify winner by column row """
-        if player.NAUGHT:
-            pass
-        return False
+        win = any(np.all(variables.game_field == player, axis=0))
+        return win
 
     def check_diag_win(self, player: PlayerEnum):
         """ Identify winner by diagonal """
-        if player.NAUGHT:
-            pass
+        # check diagonal
+        if (variables.game_field[0][0] == player
+                and variables.game_field[1][1] == player
+                and variables.game_field[2][2] == player):
+            return True
+        # another diagonal
+        if (variables.game_field[2][0] == player
+                and variables.game_field[1][1] == player
+                and variables.game_field[0][2] == player):
+            return True
+
         return False
 
     def has_empty_moves(self):

@@ -29,7 +29,7 @@ async def move(player_move: PlayerMove) -> BoardState:
     """ Make move """
     try:
         the_game.move(player_move)
-    except (game.InvalidMove, game.NotHisTurn) as exception:
+    except (game.InvalidMove, game.NotHisTurn, game.GameEnded) as exception:
         raise HTTPException(status_code=400, detail=str(exception)) from exception
 
     # return state
