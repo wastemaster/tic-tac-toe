@@ -8,7 +8,7 @@ from test_main import make_move
 client = TestClient(app)
 
 def test_win_horizontal():
-    """ Winning combination NAUGH take 0th row """
+    """ Winning combination NAUGH takes 0th row """
     # reset board
     client.get("/reset")
 
@@ -29,7 +29,7 @@ def test_win_horizontal():
 
 
 def test_win_vertical():
-    """ Winning combination NAUGH take 0th column """
+    """ Winning combination NAUGH takes 0th column """
     # reset board
     client.get("/reset")
 
@@ -49,7 +49,7 @@ def test_win_vertical():
     assert response.json()['winner'] == PlayerEnum.NAUGHT
 
 def test_move_after_win():
-    """ Winning combination NAUGH take 0th row and them wrong move """
+    """ Winning combination NAUGH takes 0th row and them wrong move """
     # reset board
     client.get("/reset")
 
