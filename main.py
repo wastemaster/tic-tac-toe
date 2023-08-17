@@ -14,7 +14,7 @@ the_game = game.GameBoard()
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     """
-    Index page
+    Index page shows the board state
     """
     return templates.TemplateResponse("index.html",
                                       {

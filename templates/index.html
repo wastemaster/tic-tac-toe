@@ -6,10 +6,11 @@
 </head>
 <body>
 <pre>
--0 1 2 ------------> x
+.  0 1 2 ------------> x
 <table>
 {% for line in game_field %}
     <tr>
+        <td>{{ loop.index0 }}</td>
         <td>|</td>
         {% for item in line %}
             <td>{{ item }}</td>
@@ -17,7 +18,9 @@
         <td>|</td>
     </tr>
 {% endfor %}
-    </table>
+    <tr><td>|</td></tr>
+    <tr><td>y</td></tr>
+</table>
 </pre>
 
 <br />
