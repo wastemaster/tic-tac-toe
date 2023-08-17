@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tic Tac Toe [Evgeny]</title>
+</head>
+<body>
+<pre>
+-0 1 2 ------------> x
+<table>
+{% for line in game_field %}
+    <tr>
+        <td>|</td>
+        {% for item in line %}
+            <td>{{ item }}</td>
+        {% endfor %}
+        <td>|</td>
+    </tr>
+{% endfor %}
+    </table>
+</pre>
+
+<br />
+<ul>
+{% for game_move in game_moves %}
+    <li>{{ game_move}}
+{% endfor %}
+</ul>>
+
+<p>Winner is: {{ winner }}</p>
+</body>
+</html>
