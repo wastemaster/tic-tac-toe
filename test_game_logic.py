@@ -1,3 +1,4 @@
+""" Game logic tests """
 from starlette.testclient import TestClient
 
 from main import app
@@ -85,7 +86,7 @@ def test_diagonal_win():
     assert response.json()['winner'] == PlayerEnum.CROSS
 
 
-def test_diagonal_win():
+def test_second_diagonal_win():
     """ Winning combination NAUGHT takes another diagonal """
     # reset board
     client.get("/reset")
